@@ -22,7 +22,28 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Configure file:
+
+```json
+{
+  "plenv" : {
+    "scheme" : "https",
+    "versions" : ["5.22.0", "5.23.2"],
+    "global" : "5.22.0"
+  }
+}
+```
+
+Add itamae recipe:
+```ruby
+include_recipe 'plenv::system'
+```
+
+You run itamae recipe:
+```console
+$ bundle exec itamae local recipe.rb -j plenv.json
+```
+
 
 ## Development
 
@@ -32,5 +53,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/itamae-plugin-recipe-plenv. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/katsyoshi/itamae-plugin-recipe-plenv. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 

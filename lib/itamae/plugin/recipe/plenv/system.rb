@@ -5,10 +5,11 @@ end
 
 package "git"
 
-require 'itamae/plugin/recipe/plenv'
-
 scheme = "git"
 scheme = node[:plenv][:scheme] if node[:plenv][:scheme]
+
+plenv_root = "/usr/local/plenv"
+plenv_root = node[:plenv][:plenv_root] if [:plenv][:plenv_root]
 
 git plenv_root do
   repository "#{scheme}://github.com/tokuhirom/plenv.git"
@@ -20,6 +21,12 @@ git "#{plenv_root}/plugins/perl-build" do
     revision node[:'perl-build'][:revision]
   end
 end
+
+plenv_init = <<-EOS
+  export PLENV_ROOT=#{plenv_root}
+  export PATH="#{plenv_root}/bin:${PATH}"
+  eval "$(plenv init -)"
+EOS
 
 node[:plenv][:versions].each do |version|
   execute "plenv install #{version}" do
